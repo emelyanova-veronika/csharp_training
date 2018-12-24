@@ -13,14 +13,19 @@ namespace addressbook_web_tests
         [Test]
         public void ContactCreationtTest()
         {
-            OpenHomePage();
-            Login(new AccountData("admin", "secret"));
-            InitNewContact();
             ContactData contact = new ContactData("ccc");
             contact.Middlename = "qqq";
-            FillContactsForm(contact);
-            SubmitNewContact();
-            ReturnToContactsForm();
+
+            app.Contacts.Create(contact);
+        }
+
+        [Test]
+        public void EmptyContactCreationtTest()
+        {
+            ContactData contact = new ContactData("");
+            contact.Middlename = "";
+
+            app.Contacts.Create(contact);
         }
     }
 }

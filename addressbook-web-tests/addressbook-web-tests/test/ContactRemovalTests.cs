@@ -12,12 +12,7 @@ namespace addressbook_web_tests
        [Test]
         public void ContactRemovalTest()
         {
-            OpenHomePage();
-            Login(new AccountData("admin", "secret"));
-            GoToContactsPage();
-            SelectContact(1);
-            RemoveContact();
-            SubmitRemoveContact();
+            app.Contacts.Remove(1);
         }
     }
 }
