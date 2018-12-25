@@ -17,6 +17,30 @@ namespace addressbook_web_tests
         {
         }
 
+        public ContactHelper Modify(int v, ContactData newData)
+        {
+            manager.Navigator.GoToContactsPage();
+            InitContactModification(v);
+            FillContactsForm(newData);
+            SubmitContactModification();
+            ReturnToContactsForm();
+            return this;
+        }
+        public ContactHelper InitContactModification(int v)
+        {
+            //driver.FindElement(By.Name("edit")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + v + "]")).Click();
+           // driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v) + "]")).Click();
+            return this;
+        }
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        
+
         public ContactHelper Create(ContactData contact)
         {
             InitNewContact();
@@ -66,13 +90,14 @@ namespace addressbook_web_tests
         }
         public ContactHelper RemoveContact()
         {
-            acceptNextAlert = true;
+            //acceptNextAlert = true;
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
         }
         public ContactHelper SubmitRemoveContact()
         {
-            Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            driver.SwitchTo().Alert().Accept();
+            //Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
             return this;
         }
 

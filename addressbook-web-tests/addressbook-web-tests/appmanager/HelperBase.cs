@@ -13,7 +13,7 @@ namespace addressbook_web_tests
     {
         protected ApplicationManager manager;
         protected IWebDriver driver;
-        protected bool acceptNextAlert = true;
+        //protected bool acceptNextAlert = true;
 
         public HelperBase(ApplicationManager manager)
         {
@@ -21,7 +21,7 @@ namespace addressbook_web_tests
             driver = manager.Driver;
         }
         //Оставила, потому что в удалении контакта используется
-        public string CloseAlertAndGetItsText()
+        /*public string CloseAlertAndGetItsText()
         {
             try
             {
@@ -41,6 +41,6 @@ namespace addressbook_web_tests
             {
                 acceptNextAlert = true;
             }
-        }
+        }*/
     }
 }
