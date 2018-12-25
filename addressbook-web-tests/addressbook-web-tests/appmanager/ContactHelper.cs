@@ -28,9 +28,7 @@ namespace addressbook_web_tests
         }
         public ContactHelper InitContactModification(int v)
         {
-            //driver.FindElement(By.Name("edit")).Click();
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + v + "]")).Click();
-           // driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v) + "]")).Click();
             return this;
         }
         public ContactHelper SubmitContactModification()
@@ -90,14 +88,12 @@ namespace addressbook_web_tests
         }
         public ContactHelper RemoveContact()
         {
-            //acceptNextAlert = true;
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
         }
         public ContactHelper SubmitRemoveContact()
         {
             driver.SwitchTo().Alert().Accept();
-            //Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
             return this;
         }
 
