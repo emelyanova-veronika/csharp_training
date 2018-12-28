@@ -54,8 +54,16 @@ namespace addressbook_web_tests
             SelectContact(v);
             RemoveContact();
             SubmitRemoveContact();
+            ReturnToContactsForm();
             return this;
         }
+
+        public ContactHelper ReturnToContactsForm()
+        {
+            driver.FindElement(By.LinkText("home")).Click();
+            return this;
+        }
+
         public ContactHelper InitNewContact()
         {
             driver.FindElement(By.LinkText("add new")).Click();
@@ -76,11 +84,7 @@ namespace addressbook_web_tests
             driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).Click();
             return this;
         }
-        public ContactHelper ReturnToContactsForm()
-        {
-            driver.FindElement(By.LinkText("home page")).Click();
-            return this;
-        }
+        
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();

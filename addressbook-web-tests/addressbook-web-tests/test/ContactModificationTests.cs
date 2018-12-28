@@ -16,7 +16,7 @@ namespace addressbook_web_tests
             ContactData newData = new ContactData("24122018");
             newData.Middlename = "24122018";
 
-            app.Contacts.Modify(5, newData);
+            app.Contacts.Modify(1, newData);
         }
     }
 }
