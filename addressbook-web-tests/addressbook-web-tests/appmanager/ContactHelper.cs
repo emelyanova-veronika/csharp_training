@@ -28,8 +28,7 @@ namespace addressbook_web_tests
         public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToContactsPage();
-
-            ExistContactVerification();
+            IsNotExistContact();
             SelectContact(v);
             RemoveContact();
             SubmitRemoveContact();
@@ -43,7 +42,7 @@ namespace addressbook_web_tests
         {
             manager.Navigator.GoToContactsPage();
 
-            ExistContactVerification();
+            IsNotExistContact();
             InitContactModification(v);
             FillContactsForm(newData);
             SubmitContactModification();
@@ -51,13 +50,14 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public void ExistContactVerification()
+        public bool ExistContactVerification()
         {
-            if (IsElementPresent(By.CssSelector("tr[name='entry']")))
-            {
-                return;
-            }
-            else
+            return IsElementPresent(By.CssSelector("tr[name='entry']"));
+        }
+
+        public void IsNotExistContact()
+        {
+            if (!ExistContactVerification())
             {
                 ContactData contact = new ContactData(".,m.m,.m,");
                 contact.Middlename = "m,.m,m,";

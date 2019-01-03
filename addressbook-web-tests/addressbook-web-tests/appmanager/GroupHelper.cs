@@ -29,7 +29,7 @@ namespace addressbook_web_tests
         {
             manager.Navigator.GoToGroupsPage();
 
-            ExistGroupVerification();
+            IsNotExistGroup();
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();
@@ -41,7 +41,8 @@ namespace addressbook_web_tests
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
-            ExistGroupVerification();
+
+            IsNotExistGroup();
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);
@@ -49,17 +50,17 @@ namespace addressbook_web_tests
             ReturnToGroupsPage();
             return this;
         }
-        public void ExistGroupVerification()
+        public bool ExistGroupVerification()
         {
-            if (IsElementPresent(By.CssSelector("span.group")))
+            return IsElementPresent(By.CssSelector("span.group"));
+        }
+        public void IsNotExistGroup()
+        {
+            if (!ExistGroupVerification())
             {
-                return;
-            }
-            else
-            {
-                GroupData group = new GroupData("222");
-                group.Header = "333";
-                group.Footer = "444";
+                GroupData group = new GroupData("ghjkhj");
+                group.Header = "fghj";
+                group.Footer = "fg";
                 Create(group);
             }
         }
