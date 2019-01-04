@@ -24,7 +24,7 @@ namespace addressbook_web_tests
             ReturnToContactsForm();
             return this;
         }
-
+        
         public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToContactsPage();
@@ -66,7 +66,7 @@ namespace addressbook_web_tests
         }
         public ContactHelper InitContactModification(int v)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + v + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v + 1) + "]")).Click();
             return this;
         }
         public ContactHelper SubmitContactModification()
@@ -100,7 +100,7 @@ namespace addressbook_web_tests
         
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
         public ContactHelper RemoveContact()
@@ -113,6 +113,16 @@ namespace addressbook_web_tests
             driver.SwitchTo().Alert().Accept();
             return this;
         }
-
+        internal List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToContactsPage();
+            ICollection<IWebElement> elements =  driver.FindElements(By.CssSelector("tr[name='entry']"));
+            foreach(IWebElement element in elements)
+            {
+                contacts.Add(new ContactData(element.Text));
+            }
+            return contacts;
+        }
     }
 }
