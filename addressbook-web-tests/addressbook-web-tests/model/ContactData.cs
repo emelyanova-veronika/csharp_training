@@ -9,11 +9,13 @@ namespace addressbook_web_tests
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string firstname;
-        private string middlename ="";
+        private string middlename="";
+        private string lastname;
 
-        public ContactData(string firstname)
+        public ContactData(string firstname, string lastname)
         {
             this.firstname = firstname;
+            this.lastname = lastname;
         }
 
         public bool Equals(ContactData other)
@@ -26,18 +28,18 @@ namespace addressbook_web_tests
             {
                 return true;
             }
-            return ((Firstname + Middlename) == (other.Firstname + other.Middlename));
+            return ((Firstname + Lastname) == (other.Firstname + other.Lastname));
         }
 
         public override int GetHashCode()
         {
-            return (Firstname + Middlename).GetHashCode();
+            return (Firstname + Lastname).GetHashCode();
         }
 
         public override string ToString()
         {
-            return "surname = " + Firstname 
-                 + "\n name = " + Middlename;
+            return "lastname= " + Lastname 
+                + "\nname= " + Firstname;
         }
 
         public int CompareTo(ContactData other)
@@ -46,11 +48,11 @@ namespace addressbook_web_tests
             {
                 return 1;
             }
-            if (Firstname.CompareTo(other.Firstname) == 0)
+            if (Lastname.CompareTo(other.Lastname) == 0)
             {
-                return Middlename.CompareTo(other.Middlename);
+                return Firstname.CompareTo(other.Firstname);
             }
-            return Firstname.CompareTo(other.Firstname);
+            return Lastname.CompareTo(other.Lastname);
 
         }
         public string Firstname
@@ -63,6 +65,12 @@ namespace addressbook_web_tests
         {
             get { return middlename; }
             set { middlename = value; }
+        }
+
+        public string Lastname
+        {
+            get { return lastname; }
+            set { lastname = value; }
         }
     }
 }

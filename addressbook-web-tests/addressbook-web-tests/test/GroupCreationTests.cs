@@ -46,7 +46,7 @@ namespace addressbook_web_tests
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
         }
-        /*[Test]
+        [Test]
         public void BadNameGroupCreationTest()
         {
 
@@ -62,6 +62,6 @@ namespace addressbook_web_tests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
-        }*/
+        }
     }
 }

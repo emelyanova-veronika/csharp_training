@@ -59,7 +59,7 @@ namespace addressbook_web_tests
         {
             if (!ExistContactVerification())
             {
-                ContactData contact = new ContactData(".,m.m,.m,");
+                ContactData contact = new ContactData(".,m.m,.m,", "123123");
                 contact.Middlename = "m,.m,m,";
                 Create(contact);
             }
@@ -89,6 +89,7 @@ namespace addressbook_web_tests
         {
             Type(By.Name("firstname"), contact.Firstname);
             Type(By.Name("middlename"), contact.Middlename);
+            Type(By.Name("lastname"), contact.Lastname);
             return this;
         }
 
@@ -113,14 +114,16 @@ namespace addressbook_web_tests
             driver.SwitchTo().Alert().Accept();
             return this;
         }
-        internal List<ContactData> GetContactList()
+        public List<ContactData> GetContactList()
         {
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.GoToContactsPage();
+            
             ICollection<IWebElement> elements =  driver.FindElements(By.CssSelector("tr[name='entry']"));
-            foreach(IWebElement element in elements)
+            foreach (IWebElement element in elements)
             {
-                contacts.Add(new ContactData(element.Text));
+                var cells = element.FindElements(By.CssSelector("td"));
+                contacts.Add(new ContactData(cells[2].Text, cells[1].Text));
             }
             return contacts;
         }
