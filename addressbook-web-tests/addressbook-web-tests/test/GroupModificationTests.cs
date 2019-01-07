@@ -17,11 +17,14 @@ namespace addressbook_web_tests
             newData.Header = null;
             newData.Footer = null;
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            
+            app.Navigator.GoToGroupsPage();
             if (!app.Groups.ExistGroupVerification())
             {
                 app.Groups.Create(new GroupData("888"));
             }
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
             app.Groups.Modify(0, newData);
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());

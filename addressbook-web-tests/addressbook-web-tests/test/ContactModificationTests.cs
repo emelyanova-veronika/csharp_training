@@ -16,11 +16,14 @@ namespace addressbook_web_tests
             ContactData newData = new ContactData("modification", null);
             newData.Middlename = null;
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            app.Navigator.GoToContactsPage();
+
             if (!app.Contacts.ExistContactVerification())
             {
                 app.Contacts.Create(new ContactData("555", "666"));
             }
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.Modify(0, newData);
 
             Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
