@@ -22,6 +22,9 @@ namespace addressbook_web_tests
                 app.Contacts.Create(new ContactData("555", "666"));
             }
             app.Contacts.Modify(0, newData);
+
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
+
             List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts[0].Firstname = newData.Firstname;
             oldContacts.Sort();
