@@ -17,6 +17,10 @@ namespace addressbook_web_tests
             newData.Middlename = null;
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
+            if (!app.Contacts.ExistContactVerification())
+            {
+                app.Contacts.Create(new ContactData("555", "666"));
+            }
             app.Contacts.Modify(0, newData);
             List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts[0].Firstname = newData.Firstname;

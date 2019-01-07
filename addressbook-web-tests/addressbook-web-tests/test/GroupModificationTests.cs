@@ -13,11 +13,15 @@ namespace addressbook_web_tests
         [Test]
         public void GroupModificationTest()
         {
-            GroupData newData = new GroupData("789");
+            GroupData newData = new GroupData("asdasd");
             newData.Header = null;
             newData.Footer = null;
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
+            if (!app.Groups.ExistGroupVerification())
+            {
+                app.Groups.Create(new GroupData("888"));
+            }
             app.Groups.Modify(0, newData);
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups[0].Name = newData.Name;

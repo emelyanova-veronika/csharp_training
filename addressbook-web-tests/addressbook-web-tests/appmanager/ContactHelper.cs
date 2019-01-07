@@ -28,21 +28,17 @@ namespace addressbook_web_tests
         public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToContactsPage();
-            IsNotExistContact();
             SelectContact(v);
             RemoveContact();
             SubmitRemoveContact();
             ReturnToContactsForm();
             return this;
         }
-
         
-
         public ContactHelper Modify(int v, ContactData newData)
         {
             manager.Navigator.GoToContactsPage();
-
-            IsNotExistContact();
+            
             InitContactModification(v);
             FillContactsForm(newData);
             SubmitContactModification();
@@ -54,16 +50,7 @@ namespace addressbook_web_tests
         {
             return IsElementPresent(By.CssSelector("tr[name='entry']"));
         }
-
-        public void IsNotExistContact()
-        {
-            if (!ExistContactVerification())
-            {
-                ContactData contact = new ContactData(".,m.m,.m,", "123123");
-                contact.Middlename = "m,.m,m,";
-                Create(contact);
-            }
-        }
+        
         public ContactHelper InitContactModification(int v)
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v + 1) + "]")).Click();

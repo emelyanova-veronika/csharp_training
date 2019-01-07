@@ -15,7 +15,10 @@ namespace addressbook_web_tests
         public void GroupRemovalTest()
         {
             List<GroupData> oldGroups = app.Groups.GetGroupList();
-
+            if (!app.Groups.ExistGroupVerification())
+            {
+                app.Groups.Create(new GroupData("888"));
+            }
             app.Groups.Remove(0);
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.RemoveAt(0);

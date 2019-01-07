@@ -14,6 +14,10 @@ namespace addressbook_web_tests
         public void ContactRemovalTest()
         {
             List<ContactData> oldContacts = app.Contacts.GetContactList();
+            if (!app.Contacts.ExistContactVerification())
+            {
+                app.Contacts.Create(new ContactData("ccc", "zzz"));
+            }
             app.Contacts.Remove(0);
             List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts.RemoveAt(0);

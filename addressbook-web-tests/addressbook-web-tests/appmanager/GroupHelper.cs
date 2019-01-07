@@ -24,14 +24,11 @@ namespace addressbook_web_tests
             ReturnToGroupsPage();
             return this;
         }
-
         
-
         public GroupHelper Remove(int v)
         {
             manager.Navigator.GoToGroupsPage();
-
-            IsNotExistGroup();
+            
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();
@@ -43,8 +40,7 @@ namespace addressbook_web_tests
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
-
-            IsNotExistGroup();
+            
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);
@@ -55,16 +51,6 @@ namespace addressbook_web_tests
         public bool ExistGroupVerification()
         {
             return IsElementPresent(By.CssSelector("span.group"));
-        }
-        public void IsNotExistGroup()
-        {
-            if (!ExistGroupVerification())
-            {
-                GroupData group = new GroupData("ghjkhj");
-                group.Header = "fghj";
-                group.Footer = "fg";
-                Create(group);
-            }
         }
 
         public GroupHelper InitGroupModification()
