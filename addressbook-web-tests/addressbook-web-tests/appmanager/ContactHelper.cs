@@ -117,7 +117,10 @@ namespace addressbook_web_tests
                 foreach (IWebElement element in elements)
                 {
                     var cells = element.FindElements(By.CssSelector("td"));
-                    contactCache.Add(new ContactData(cells[2].Text, cells[1].Text));
+                    contactCache.Add(new ContactData(cells[2].Text, cells[1].Text)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
                 }
             }
 
