@@ -15,7 +15,6 @@ namespace addressbook_web_tests
         public void ContactCreationtTest()
         {
             ContactData contact = new ContactData("ccc", "zzz");
-            contact.Middlename = "qqq";
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.Create(contact);
@@ -33,7 +32,6 @@ namespace addressbook_web_tests
         public void EmptyContactCreationtTest()
         {
             ContactData contact = new ContactData("","");
-            contact.Middlename = "";
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.Create(contact);
@@ -50,7 +48,6 @@ namespace addressbook_web_tests
         public void BadNameContactCreationtTest()
         {
             ContactData contact = new ContactData("a'","bb'");
-            contact.Middlename = "";
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.Create(contact);

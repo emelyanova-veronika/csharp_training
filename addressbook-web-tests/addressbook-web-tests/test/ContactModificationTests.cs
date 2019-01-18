@@ -14,7 +14,6 @@ namespace addressbook_web_tests
         public void ContactModificationTest()
         {
             ContactData newData = new ContactData("modification", null);
-            newData.Middlename = null;
 
             app.Navigator.GoToContactsPage();
 
