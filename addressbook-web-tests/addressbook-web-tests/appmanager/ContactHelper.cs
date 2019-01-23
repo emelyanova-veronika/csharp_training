@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -27,6 +28,8 @@ namespace addressbook_web_tests
             return this;
         }
 
+        
+
         public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToContactsPage();
@@ -48,6 +51,7 @@ namespace addressbook_web_tests
             return this;
         }
 
+
         public bool ExistContactVerification()
         {
             return IsElementPresent(By.CssSelector("tr[name='entry']"));
@@ -55,8 +59,13 @@ namespace addressbook_web_tests
         
         public ContactHelper InitContactModification(int v)
         {
-            //driver.FindElements(By.Name("entry"))[v].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v + 1) + "]")).Click();
+            driver.FindElements(By.Name("entry"))[v].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
+            //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v + 1) + "]")).Click();
+            return this;
+        }
+        public ContactHelper OpenViewForm(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
             return this;
         }
         public ContactHelper SubmitContactModification()
@@ -98,6 +107,7 @@ namespace addressbook_web_tests
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            Thread.Sleep(1000);
             return this;
         }
         public ContactHelper SubmitRemoveContact()
@@ -179,5 +189,43 @@ namespace addressbook_web_tests
                 AllPhones = allPhones
             };
         }
+
+        public string GetContactInformationFromViewForm(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            OpenViewForm(index);
+            string allText = driver.FindElement(By.Id("content")).Text;
+            return CleanUpText(allText).Trim();
+        }
+
+
+        public string GetContactInfoFromEditFormForView(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            InitContactModification(index);
+            string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+
+            string firstEmail = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string secondEmail = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string thirdEmail = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
+            string allInfo = firstname + lastname + address + homePhone + mobilePhone + workPhone + firstEmail + secondEmail + thirdEmail;
+            return CleanUpText(allInfo).Trim();
+        }
+        private string CleanUpText(string text)
+        {
+            if (text == null || text == "")
+            {
+                return "";
+            }
+            return Regex.Replace(text, "[ -()]H:M:W:\r\n", "");
+        }
+        
     }
 }

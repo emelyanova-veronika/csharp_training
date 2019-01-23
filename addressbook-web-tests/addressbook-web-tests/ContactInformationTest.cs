@@ -22,5 +22,12 @@ namespace addressbook_web_tests
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
 
         }
+        [Test]
+        public void TestContactInformationOnView_Edit()
+        { 
+            string fromView = app.Contacts.GetContactInformationFromViewForm(0);
+            string fromEdit = app.Contacts.GetContactInfoFromEditFormForView(0);
+            Assert.AreEqual(fromView, fromEdit);
+        }
     }
 }
