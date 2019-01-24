@@ -215,7 +215,8 @@ namespace addressbook_web_tests
             string secondEmail = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string thirdEmail = driver.FindElement(By.Name("email3")).GetAttribute("value");
 
-            string allInfo = firstname + lastname + address + homePhone + mobilePhone + workPhone + firstEmail + secondEmail + thirdEmail;
+            //string allInfo = firstname + lastname + address + "H: " + homePhone + "M: " + mobilePhone + "W: " + workPhone + firstEmail + secondEmail + thirdEmail;
+            string allInfo = firstname + lastname + address + (string.IsNullOrEmpty(homePhone) ? "" : ("H: " + homePhone)) + (string.IsNullOrEmpty(mobilePhone) ? "" : ("M: " + mobilePhone)) + (string.IsNullOrEmpty(workPhone) ? "" : ("W: " + workPhone)) + firstEmail + secondEmail + thirdEmail;
             return CleanUpText(allInfo).Trim();
         }
         private string CleanUpText(string text)
@@ -224,7 +225,8 @@ namespace addressbook_web_tests
             {
                 return "";
             }
-            return Regex.Replace(text, "[ -()]H:M:W:\r\n", "");
+            //return Regex.Replace(text, "[ -()H:M:W:]\r\n", "");
+            return Regex.Replace(text, "[ -()\r\n]", "");
         }
         
     }
