@@ -6,6 +6,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace addressbook_web_tests
@@ -39,10 +40,16 @@ namespace addressbook_web_tests
         {
             List<ContactData> contacts = new List<ContactData>();
             return (List<ContactData>)new XmlSerializer(typeof(List<ContactData>)).Deserialize(new StreamReader(@"contact.xml"));
-            return contacts;
+            
         }
 
-        [Test,TestCaseSource("ContactDataFromXmlFile")]
+        public static IEnumerable<ContactData> ContactDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactData>>(
+                File.ReadAllText(@"contact.json"));
+        }
+
+        [Test,TestCaseSource("ContactDataFromJsonFile")]
         public void ContactCreationtTest(ContactData contact)
         {
             List<ContactData> oldContacts = app.Contacts.GetContactList();

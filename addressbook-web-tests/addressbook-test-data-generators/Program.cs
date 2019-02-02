@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using addressbook_web_tests;
 
 
@@ -40,6 +41,10 @@ namespace addressbook_test_data_generators
                 {
                     writeGroupsToXml(groups, writer);
                 }
+                else if (format == "json")
+                {
+                    writeGroupsToJson(groups, writer);
+                }
                 else
                 {
                     System.Console.Out.Write("ERROR" + format);
@@ -60,6 +65,10 @@ namespace addressbook_test_data_generators
                 else if (format == "xml")
                 {
                     writeContactsToXml(contacts, writer);
+                }
+                else if (format == "json")
+                {
+                    writeContactToJson(contacts, writer);
                 }
                 else
                 {
@@ -87,9 +96,19 @@ namespace addressbook_test_data_generators
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer,groups);
         }
 
+        static void writeGroupsToJson(List<GroupData> groups, StreamWriter writer)
+        {
+            writer.Write(JsonConvert.SerializeObject(groups, Newtonsoft.Json.Formatting.Indented));
+        }
+
         static void writeContactsToXml(List<ContactData> contacts, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
+        }
+
+        static void writeContactToJson(List<ContactData> contacts, StreamWriter writer)
+        {
+            writer.Write(JsonConvert.SerializeObject(contacts, Newtonsoft.Json.Formatting.Indented));
         }
         static void writeContactsToCsv(List<ContactData> contacts, StreamWriter writer)
         {
