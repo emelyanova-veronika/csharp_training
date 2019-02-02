@@ -81,6 +81,12 @@
     <Compile Include="test\TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="contact.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="group.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
