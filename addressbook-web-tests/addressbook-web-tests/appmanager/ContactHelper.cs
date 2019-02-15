@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -39,7 +40,17 @@ namespace addressbook_web_tests
             ReturnToContactsForm();
             return this;
         }
-        
+
+        public ContactHelper Remove(ContactData contact)
+        {
+            manager.Navigator.GoToContactsPage();
+            SelectContact(contact.Id);
+            RemoveContact();
+            SubmitRemoveContact();
+            ReturnToContactsForm();
+            return this;
+        }
+
         public ContactHelper Modify(int v, ContactData newData)
         {
             manager.Navigator.GoToContactsPage();
@@ -51,7 +62,16 @@ namespace addressbook_web_tests
             return this;
         }
 
+        /*public ContactHelper Modify(ContactData contact, ContactData newData)
+        {
+            manager.Navigator.GoToContactsPage();
 
+            InitContactModification(contact.Id);
+            FillContactsForm(newData);
+            SubmitContactModification();
+            ReturnToContactsForm();
+            return this;
+        }*/
         public bool ExistContactVerification()
         {
             return IsElementPresent(By.CssSelector("tr[name='entry']"));
@@ -63,6 +83,12 @@ namespace addressbook_web_tests
             //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v + 1) + "]")).Click();
             return this;
         }
+        /*public ContactHelper InitContactModification(String id)
+        {
+            driver.FindElements(By.Name("entry"))[v].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
+            //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v + 1) + "]")).Click();
+            return this;
+        }*/
         public ContactHelper OpenViewForm(int index)
         {
             driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
@@ -102,6 +128,13 @@ namespace addressbook_web_tests
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(String id)
+        {
+            //driver.FindElement(By.XPath("(//input[@name='selected[]' and  @value='" + (Convert.ToInt32(id)) + "'])")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and  @value='" + id + "'])")).Click();
             return this;
         }
         public ContactHelper RemoveContact()
