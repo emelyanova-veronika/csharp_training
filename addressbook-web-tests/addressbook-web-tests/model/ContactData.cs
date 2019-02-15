@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using LinqToDB.Mapping;
 
 namespace addressbook_web_tests
 {
+    [Table(Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
@@ -60,22 +62,31 @@ namespace addressbook_web_tests
             return Lastname.CompareTo(other.Lastname);
 
         }
+        [Column(Name = "firstname")]
         public string Firstname { get; set; }
 
+        [Column(Name = "lastname")]
         public string Lastname { get; set; }
 
+        [Column(Name = "address")]
         public string Address { get; set; }
 
+        [Column(Name = "home")]
         public string HomePhone { get; set; }
 
+        [Column(Name = "mobile")]
         public string MobilePhone { get; set; }
 
+        [Column(Name = "work")]
         public string WorkPhone { get; set; }
 
+        [Column(Name = "email")]
         public string FirstEmail { get; set; }
 
+        [Column(Name = "email2")]
         public string SecondEmail { get; set; }
 
+        [Column(Name = "email3")]
         public string ThirdEmail { get; set; }
 
         public string AllEmails
@@ -135,7 +146,15 @@ namespace addressbook_web_tests
             return Regex.Replace(mail, "[ -()]", "") + "\r\n";
         }
 
-
+        [Column(Name = "id"), PrimaryKey, Identity]
         public string Id { get; set; }
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressbookDB db = new AddressbookDB())
+            {
+                return (from c in db.Contacts select c).ToList();
+            }
+        }
     }
 }
