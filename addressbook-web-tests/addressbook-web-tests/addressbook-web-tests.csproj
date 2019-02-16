@@ -79,7 +79,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GroupContactRelation.cs" />
+    <Compile Include="AddingContactToGroupsTests.cs" />
+    <Compile Include="model\GroupContactRelation.cs" />
     <Compile Include="test\ContactTestBase.cs" />
     <Compile Include="test\GroupTestBase.cs" />
     <Compile Include="model\AddressbookDB.cs" />
