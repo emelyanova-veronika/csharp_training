@@ -19,6 +19,9 @@ namespace addressbook_web_tests
         {
             get { return GetTable<ContactData>(); }
         }
-        
+        public ITable<GroupContactRelation> GCR
+        {
+            get { return GetTable<GroupContactRelation>(); }
+        }
     }
 }

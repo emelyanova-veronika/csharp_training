@@ -96,7 +96,7 @@ namespace addressbook_web_tests
         [Test]
         public void TestDBConnectivity()
         {
-            DateTime start = DateTime.Now;
+            /*DateTime start = DateTime.Now;
             List<GroupData> fromUI = app.Groups.GetGroupList();
             DateTime end = DateTime.Now;
             System.Console.Out.WriteLine(end.Subtract(start));
@@ -104,7 +104,12 @@ namespace addressbook_web_tests
             start = DateTime.Now;
             List<GroupData> fromDb = GroupData.GetAll();
             end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start));
+            System.Console.Out.WriteLine(end.Subtract(start));*/
+
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+            }
 
         }
     }

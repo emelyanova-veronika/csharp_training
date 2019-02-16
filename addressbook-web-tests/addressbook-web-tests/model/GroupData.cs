@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LinqToDB.Mapping;
+using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
@@ -61,6 +62,15 @@ namespace addressbook_web_tests
             using (AddressbookDB db = new AddressbookDB())
             {
                 return (from g in db.Groups select g).ToList();
+            }
+        }
+
+        public List<ContactData> GetContacts()
+        {
+            using (AddressbookDB db = new AddressbookDB())
+            {
+                return (from c in db.Contacts from gcr in db.GCR.Where( p => p.GroupId == Id && p.ContactId == c.Id)
+                        select c ).Distinct().ToList();
             }
         }
     }
