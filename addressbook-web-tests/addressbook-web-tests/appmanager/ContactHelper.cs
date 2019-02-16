@@ -62,7 +62,7 @@ namespace addressbook_web_tests
             return this;
         }
 
-        /*public ContactHelper Modify(ContactData contact, ContactData newData)
+        public ContactHelper Modify(ContactData contact, ContactData newData)
         {
             manager.Navigator.GoToContactsPage();
 
@@ -71,7 +71,7 @@ namespace addressbook_web_tests
             SubmitContactModification();
             ReturnToContactsForm();
             return this;
-        }*/
+        }
         public bool ExistContactVerification()
         {
             return IsElementPresent(By.CssSelector("tr[name='entry']"));
@@ -83,12 +83,12 @@ namespace addressbook_web_tests
             //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v + 1) + "]")).Click();
             return this;
         }
-        /*public ContactHelper InitContactModification(String id)
+        public ContactHelper InitContactModification(String id)
         {
-            driver.FindElements(By.Name("entry"))[v].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
-            //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v + 1) + "]")).Click();
+            driver.FindElements(By.Name("entry"))[Convert.ToInt32(id)].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
+            //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + id + "]")).Click();
             return this;
-        }*/
+        }
         public ContactHelper OpenViewForm(int index)
         {
             driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
