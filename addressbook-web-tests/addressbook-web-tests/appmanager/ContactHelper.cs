@@ -44,12 +44,20 @@ namespace addressbook_web_tests
         public void RemoveContactFromGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.GoToContactsPage();
-            ClearGroupFilter();
-            OpenViewForm(contact.Id);
-            OpenGroupFormWithContacts(group.Id);
+            //ClearGroupFilter();
+            //OpenViewForm(contact.Id);
+            //OpenGroupFormWithContacts(group.Id);
+            
+            //ReturnToGroupFormWithContacts();
+            SelectGroupToRemove(group.Id);
             SelectContact(contact.Id);
             RemoveContactFromGroup();
-           // ReturnToGroupFormWithContacts();
+
+        }
+
+        public void SelectGroupToRemove(string groupId)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByValue(groupId);
         }
 
         /*public void ReturnToGroupFormWithContacts()
@@ -62,15 +70,15 @@ namespace addressbook_web_tests
             driver.FindElement(By.Name("remove")).Click();
         }
 
-        public void OpenGroupFormWithContacts(String id)
-        {
-            driver.FindElement(By.TagName("i")).FindElement(By.Id(id)).Click();
-        }
-        public ContactHelper OpenViewForm(String id)
-        {
-            driver.FindElements(By.Name("entry"))[Convert.ToInt32(id)].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
-            return this;
-        }
+        //public void OpenGroupFormWithContacts(String id)
+        //{
+        //    driver.FindElement(By.TagName("i")).FindElement(By.Id(id)).Click();
+        //}
+        //public ContactHelper OpenViewForm(String id)
+        //{
+        //    driver.FindElements(By.Name("entry"))[Convert.ToInt32(id)].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
+        //    return this;
+        //}
 
         public void CommitAddingContactToGroup()
         {
@@ -141,8 +149,8 @@ namespace addressbook_web_tests
         }
         public ContactHelper InitContactModification(String id)
         {
-            driver.FindElements(By.Name("entry"))[Convert.ToInt32(id)].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
-            //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + id + "]")).Click();
+           driver.FindElements(By.Name("entry"))[0].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
+           //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + x + "]")).Click();
             return this;
         }
         public ContactHelper OpenViewForm(int index)
