@@ -41,6 +41,37 @@ namespace addressbook_web_tests
 
         }
 
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToContactsPage();
+            ClearGroupFilter();
+            OpenViewForm(contact.Id);
+            OpenGroupFormWithContacts(group.Id);
+            SelectContact(contact.Id);
+            RemoveContactFromGroup();
+           // ReturnToGroupFormWithContacts();
+        }
+
+        /*public void ReturnToGroupFormWithContacts()
+        {
+            driver.FindElement(By.LinkText("home")).Click();
+        }*/
+
+        public void RemoveContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        public void OpenGroupFormWithContacts(String id)
+        {
+            driver.FindElement(By.TagName("i")).FindElement(By.Id(id)).Click();
+        }
+        public ContactHelper OpenViewForm(String id)
+        {
+            driver.FindElements(By.Name("entry"))[Convert.ToInt32(id)].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
         public void CommitAddingContactToGroup()
         {
             driver.FindElement(By.Name("add")).Click();
@@ -287,6 +318,7 @@ namespace addressbook_web_tests
             //return Regex.Replace(text, "[ -()H:M:W:]\r\n", "");
             return Regex.Replace(text, "[ -()\r\n]", "");
         }
+
         
     }
 }
