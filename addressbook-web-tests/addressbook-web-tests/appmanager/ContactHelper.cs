@@ -149,8 +149,12 @@ namespace addressbook_web_tests
         }
         public ContactHelper InitContactModification(String id)
         {
-           driver.FindElements(By.Name("entry"))[0].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
-           //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + x + "]")).Click();
+          // driver.FindElements(By.Name("entry"))[0].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
+           var a = driver.FindElements(By.Name("entry")).Select(x => x.FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")));
+           var b = a.FirstOrDefault(x => x.GetAttribute("href").EndsWith("id=" + id));
+           b ?.Click();
+        
+            //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + id + "]")).Click();
             return this;
         }
         public ContactHelper OpenViewForm(int index)
