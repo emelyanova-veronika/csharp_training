@@ -140,7 +140,12 @@ namespace addressbook_web_tests
         {
             return IsElementPresent(By.CssSelector("tr[name='entry']"));
         }
-        
+
+        public bool ExistContactsInGroupVerification()
+        {
+            return IsElementPresent(By.CssSelector("tr[name='entry']"));
+        }
+
         public ContactHelper InitContactModification(int v)
         {
             driver.FindElements(By.Name("entry"))[v].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
